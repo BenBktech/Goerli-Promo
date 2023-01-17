@@ -1,0 +1,119 @@
+{
+  "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "Bank__NotEnoughEthersOnTheSC",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Bank__NotEnoughFundsProvided",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Bank__WithdrawFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "sendEthers",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xbbefe60ca99f9c91f5b24e5572d2fc493e3eaa752e6e3bb54692fbc9c87caced",
+  "receipt": {
+    "to": null,
+    "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "transactionIndex": 0,
+    "gasUsed": "266505",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x952dbed6ae2c978d20c5e38e1b50e768fcf05f0fc8a1ab14494f85f932926a53",
+    "transactionHash": "0xbbefe60ca99f9c91f5b24e5572d2fc493e3eaa752e6e3bb54692fbc9c87caced",
+    "logs": [],
+    "blockNumber": 1,
+    "cumulativeGasUsed": "266505",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "740b324898c27c0152abc7e3ca4751c7",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"Bank__NotEnoughEthersOnTheSC\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Bank__NotEnoughFundsProvided\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Bank__WithdrawFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"sendEthers\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"Ben BK\",\"kind\":\"dev\",\"methods\":{\"withdraw(uint256)\":{\"params\":{\"_amount\":\"The amount to withdraw\"}}},\"title\":\"A simple wallet contract\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"sendEthers()\":{\"notice\":\"Allows to send Ethers to the smart contract\"},\"withdraw(uint256)\":{\"notice\":\"Allows to withdraw Ethers from the smart contract\"}},\"notice\":\"Allows to send and withdraw Ethers from a smart contract\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Bank.sol\":\"Bank\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Bank.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\r\\npragma solidity 0.8.17;\\r\\n\\r\\nerror Bank__NotEnoughFundsProvided();\\r\\nerror Bank__NotEnoughEthersOnTheSC();\\r\\nerror Bank__WithdrawFailed();\\r\\n\\r\\n/// @title A simple wallet contract\\r\\n/// @author Ben BK\\r\\n/// @notice Allows to send and withdraw Ethers from a smart contract\\r\\n\\r\\ncontract Bank {\\r\\n\\r\\n    mapping(address => uint) balances;\\r\\n\\r\\n    /// @notice Allows to send Ethers to the smart contract\\r\\n    function sendEthers() external payable {\\r\\n        if(msg.value < 1 wei) {\\r\\n            revert Bank__NotEnoughFundsProvided();\\r\\n        }\\r\\n        balances[msg.sender] += msg.value;\\r\\n    }\\r\\n\\r\\n    /// @notice Allows to withdraw Ethers from the smart contract\\r\\n    /// @param _amount The amount to withdraw\\r\\n    function withdraw(uint _amount) external {\\r\\n        if(_amount > balances[msg.sender]) {\\r\\n            revert Bank__NotEnoughEthersOnTheSC();\\r\\n        }\\r\\n        balances[msg.sender] -= _amount;\\r\\n        (bool received, ) = msg.sender.call{value: _amount}(\\\"\\\");\\r\\n        if(!received) {\\r\\n            revert Bank__WithdrawFailed();\\r\\n        }\\r\\n    }\\r\\n}\\r\\n\",\"keccak256\":\"0xfaa0807b0c7088c78329c77a6e10c87975e8e5d82e54a129fd2f70edb81c2198\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506103e2806100206000396000f3fe6080604052600436106100295760003560e01c80630783cda71461002e5780632e1a7d4d14610038575b600080fd5b610036610061565b005b34801561004457600080fd5b5061005f600480360381019061005a91906102a2565b6100f3565b005b600134101561009c576040517f06f7aa0000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b346000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008282546100ea91906102fe565b92505081905550565b6000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205481111561016b576040517feb85367a00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b806000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008282546101b99190610332565b9250508190555060003373ffffffffffffffffffffffffffffffffffffffff16826040516101e690610397565b60006040518083038185875af1925050503d8060008114610223576040519150601f19603f3d011682016040523d82523d6000602084013e610228565b606091505b5050905080610263576040517f8521549000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b5050565b600080fd5b6000819050919050565b61027f8161026c565b811461028a57600080fd5b50565b60008135905061029c81610276565b92915050565b6000602082840312156102b8576102b7610267565b5b60006102c68482850161028d565b91505092915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006103098261026c565b91506103148361026c565b925082820190508082111561032c5761032b6102cf565b5b92915050565b600061033d8261026c565b91506103488361026c565b92508282039050818111156103605761035f6102cf565b5b92915050565b600081905092915050565b50565b6000610381600083610366565b915061038c82610371565b600082019050919050565b60006103a282610374565b915081905091905056fea2646970667358221220dacc3914d907cadecd12a36ab0c525a527c9e3113d63f0a7c98b0159fde66b0c64736f6c63430008110033",
+  "deployedBytecode": "0x6080604052600436106100295760003560e01c80630783cda71461002e5780632e1a7d4d14610038575b600080fd5b610036610061565b005b34801561004457600080fd5b5061005f600480360381019061005a91906102a2565b6100f3565b005b600134101561009c576040517f06f7aa0000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b346000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008282546100ea91906102fe565b92505081905550565b6000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019081526020016000205481111561016b576040517feb85367a00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b806000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060008282546101b99190610332565b9250508190555060003373ffffffffffffffffffffffffffffffffffffffff16826040516101e690610397565b60006040518083038185875af1925050503d8060008114610223576040519150601f19603f3d011682016040523d82523d6000602084013e610228565b606091505b5050905080610263576040517f8521549000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b5050565b600080fd5b6000819050919050565b61027f8161026c565b811461028a57600080fd5b50565b60008135905061029c81610276565b92915050565b6000602082840312156102b8576102b7610267565b5b60006102c68482850161028d565b91505092915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006103098261026c565b91506103148361026c565b925082820190508082111561032c5761032b6102cf565b5b92915050565b600061033d8261026c565b91506103488361026c565b92508282039050818111156103605761035f6102cf565b5b92915050565b600081905092915050565b50565b6000610381600083610366565b915061038c82610371565b600082019050919050565b60006103a282610374565b915081905091905056fea2646970667358221220dacc3914d907cadecd12a36ab0c525a527c9e3113d63f0a7c98b0159fde66b0c64736f6c63430008110033",
+  "devdoc": {
+    "author": "Ben BK",
+    "kind": "dev",
+    "methods": {
+      "withdraw(uint256)": {
+        "params": {
+          "_amount": "The amount to withdraw"
+        }
+      }
+    },
+    "title": "A simple wallet contract",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "sendEthers()": {
+        "notice": "Allows to send Ethers to the smart contract"
+      },
+      "withdraw(uint256)": {
+        "notice": "Allows to withdraw Ethers from the smart contract"
+      }
+    },
+    "notice": "Allows to send and withdraw Ethers from a smart contract",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 12,
+        "contract": "contracts/Bank.sol:Bank",
+        "label": "balances",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_mapping(t_address,t_uint256)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
