@@ -34,24 +34,33 @@ export const Bank = () => {
 
     useEffect(() => {
         const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
-        contract.on('etherDeposited', (account, amount) => {
+        eventListener(contract)
+        return () => {
+            contract.removeAllListeners();
+        };
+    }, [])
+    
+    const eventListener = async(contract) => {
+        const startBlockNumber = await provider.getBlockNumber();
+        contract.on('etherDeposited', (...args) => {
+            const event = args[args.length - 1];
+            console.log(event)
+            if(event.blockNumber <= startBlockNumber) return; // do not react to this event
             toast({
                 title: 'Deposit Event',
-                description: "Account : " + account + " - amount " + amount,
+                description: "By : " + event.args.account + ", Amount : " + ethers.utils.formatEther(event.args.amount) + " Eth",
                 status: 'success',
                 duration: 5000,
                 isClosable: true,
             })
         })
-        return () => {
-            contract.removeAllListeners();
-        };
-    }, [])
+    }
 
     const getDatas = async() => {
         console.log(address) //il affiche bien ici la bonne adresse ;D
         const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
-        let balance = await contract.connect(address).getBalanceOfUser() //mais là il prend la mauvaise ><
+        let balance = await contract.getBalanceOfUser() //mais là il prend la mauvaise ><
+        console.log(balance)
         setBalance(balance)
 
         let filter = {
