@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }) {
   <ChakraProvider>
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains}>
-    <Component {...pageProps} />
+        <Component {...pageProps} />
     </RainbowKitProvider></WagmiConfig>
   </ChakraProvider>)
 }

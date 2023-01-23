@@ -30,7 +30,7 @@ export const Bank = () => {
         if(isConnected) {
             getDatas()
         }
-    }, [isConnected])
+    }, [isConnected, address])
 
     useEffect(() => {
         const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
@@ -49,8 +49,9 @@ export const Bank = () => {
     }, [])
 
     const getDatas = async() => {
+        console.log(address) //il affiche bien ici la bonne adresse ;D
         const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
-        let balance = await contract.getBalanceOfUser()
+        let balance = await contract.connect(address).getBalanceOfUser() //mais là il prend la mauvaise ><
         setBalance(balance)
 
         let filter = {
@@ -58,7 +59,6 @@ export const Bank = () => {
             fromBlock : 0
         }
         let events = await contract.queryFilter(filter)
-        console.log(events)
         setEvents(events)
     }
 
@@ -68,7 +68,7 @@ export const Bank = () => {
             const contract = new ethers.Contract(contractAddress, Contract.abi, signer)
             let transaction = await contract.deposit({value: ethers.utils.parseEther(amountDeposit)})
             await transaction.wait()
-            getDatas()
+            await getDatas()
             toast({
                 title: 'Deposit was successfull',
                 description: "You have deposited Ethers on this smart contract, congratulations!",
@@ -96,7 +96,7 @@ export const Bank = () => {
             const contract = new ethers.Contract(contractAddress, Contract.abi, signer)
             let transaction = await contract.withdraw(ethers.utils.parseEther(amountWithdraw))
             await transaction.wait()
-            getDatas()
+            await getDatas()
             toast({
                 title: 'Withdraw was successfull',
                 description: "You have withdrawed Ethers on this smart contract, congratulations!",
