@@ -59,7 +59,7 @@ export const Bank = () => {
     const getDatas = async() => {
         console.log(address) //il affiche bien ici la bonne adresse ;D
         const contract = new ethers.Contract(contractAddress, Contract.abi, provider)
-        let balance = await contract.getBalanceOfUser() //mais là il prend la mauvaise ><
+        let balance = await contract.connect(address).getBalanceOfUser() //mais là il prend la mauvaise ><
         console.log(balance)
         setBalance(balance)
 
