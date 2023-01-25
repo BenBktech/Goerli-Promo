@@ -1,0 +1,37 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/Job.sol": {
+      "content": "// SPDX-License-Identifier: MIT\r\npragma solidity 0.8.17;\r\n\r\n///@title A Mini Job Smart contract\r\n///@author Ben BK\r\ncontract Jobs {\r\n\r\n    struct Job {\r\n        address author;\r\n        address worker;\r\n        string description;\r\n        uint price;\r\n        bool isFinished;\r\n    }\r\n\r\n    Job[] jobs;\r\n\r\n    event jobAdded(address indexed author, string description, uint price, uint id, bool isFinished);\r\n    event jobTaken(address indexed worker, uint id);\r\n    event jobIsFinishedAndPaid(address indexed author, address indexed worker, uint id, uint pricePaid);\r\n\r\n    ///@notice Allows to add a new job \r\n    ///@param _description the complete description of the job\r\n    function addJob(\r\n        string calldata _description\r\n    ) external payable {\r\n        Job memory thisJob = Job(msg.sender, address(0), _description, msg.value, false);\r\n        jobs.push(thisJob);\r\n        emit jobAdded(msg.sender, _description, msg.value, jobs.length - 1, false);\r\n    }\r\n\r\n    ///@notice Allows to take the job\r\n    ///@param _id the index of the job in the jobs array\r\n    function takeJob(uint _id) external {\r\n        require(msg.sender != jobs[_id].author, \"The author cannot take the job\");\r\n        require(jobs[_id].worker == address(0), \"Job already taken\");\r\n        jobs[_id].worker = msg.sender;\r\n        emit jobTaken(msg.sender, _id);\r\n    }\r\n\r\n    ///@notice Allows to end the job and to pay the worker\r\n    ///@param _id the id of the job in the jobs array\r\n    function setIsFinishedAndPay(uint _id) external {\r\n        require(jobs[_id].worker != address(0), \"Job not taken yet\");\r\n        require(msg.sender == jobs[_id].author, \"You are not the author of this job\");\r\n        require(!jobs[_id].isFinished, \"This job is already finished and paid\");\r\n        (bool received, ) = jobs[_id].worker.call{value: jobs[_id].price}('');\r\n        if(received) {\r\n            jobs[_id].isFinished = true;\r\n        }\r\n        else {\r\n            revert(\"The worker has not been paid, reverting the transaction...\");\r\n        }\r\n        emit jobIsFinishedAndPaid(jobs[_id].author, jobs[_id].worker, _id, jobs[_id].price);\r\n    }\r\n}"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates",
+          "devdoc",
+          "userdoc"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
