@@ -1,0 +1,108 @@
+{
+  "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newValue",
+          "type": "uint256"
+        }
+      ],
+      "name": "ValueChanged",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "retrieve",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "newValue",
+          "type": "uint256"
+        }
+      ],
+      "name": "store",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "version",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xa5a447220f42c56744557f7203a2c12fd2d8c87bf31098a81b7affd8dd99d223",
+  "receipt": {
+    "to": null,
+    "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "contractAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "transactionIndex": 0,
+    "gasUsed": "148423",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xd36e045ab202f1dc9da2492d98785ae9ba219f6b894ff46c57b3db782a8a748e",
+    "transactionHash": "0xa5a447220f42c56744557f7203a2c12fd2d8c87bf31098a81b7affd8dd99d223",
+    "logs": [],
+    "blockNumber": 2,
+    "cumulativeGasUsed": "148423",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "876d08d5cfe1df9cf7f005d242aa23ea",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newValue\",\"type\":\"uint256\"}],\"name\":\"ValueChanged\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"retrieve\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newValue\",\"type\":\"uint256\"}],\"name\":\"store\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"version\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Box.sol\":\"Box\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Box.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\r\\npragma solidity 0.8.17;\\r\\n\\r\\ncontract Box {\\r\\n    uint256 internal value;\\r\\n\\r\\n    event ValueChanged(uint256 newValue);\\r\\n\\r\\n    function store(uint256 newValue) public {\\r\\n        value = newValue;\\r\\n        emit ValueChanged(newValue);\\r\\n    }\\r\\n\\r\\n    function retrieve() public view returns(uint256) {\\r\\n        return value;\\r\\n    }\\r\\n\\r\\n    function version() public pure returns(uint256) {\\r\\n        return 1;\\r\\n    }\\r\\n}\",\"keccak256\":\"0x9f97a4a04d353beb87beb3df4c7c72078bd9bd2d555c002bb6369e05311de154\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b506101b9806100206000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c80632e64cec11461004657806354fd4d50146100645780636057361d14610082575b600080fd5b61004e61009e565b60405161005b919061010a565b60405180910390f35b61006c6100a7565b604051610079919061010a565b60405180910390f35b61009c60048036038101906100979190610156565b6100b0565b005b60008054905090565b60006001905090565b806000819055507f93fe6d397c74fdf1402a8b72e47b68512f0510d7b98a4bc4cbdf6ac7108b3c59816040516100e6919061010a565b60405180910390a150565b6000819050919050565b610104816100f1565b82525050565b600060208201905061011f60008301846100fb565b92915050565b600080fd5b610133816100f1565b811461013e57600080fd5b50565b6000813590506101508161012a565b92915050565b60006020828403121561016c5761016b610125565b5b600061017a84828501610141565b9150509291505056fea2646970667358221220cfc4407992d1f66d05d1786ff5109cf91501edab64dc67f146e51f83704189d364736f6c63430008110033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100415760003560e01c80632e64cec11461004657806354fd4d50146100645780636057361d14610082575b600080fd5b61004e61009e565b60405161005b919061010a565b60405180910390f35b61006c6100a7565b604051610079919061010a565b60405180910390f35b61009c60048036038101906100979190610156565b6100b0565b005b60008054905090565b60006001905090565b806000819055507f93fe6d397c74fdf1402a8b72e47b68512f0510d7b98a4bc4cbdf6ac7108b3c59816040516100e6919061010a565b60405180910390a150565b6000819050919050565b610104816100f1565b82525050565b600060208201905061011f60008301846100fb565b92915050565b600080fd5b610133816100f1565b811461013e57600080fd5b50565b6000813590506101508161012a565b92915050565b60006020828403121561016c5761016b610125565b5b600061017a84828501610141565b9150509291505056fea2646970667358221220cfc4407992d1f66d05d1786ff5109cf91501edab64dc67f146e51f83704189d364736f6c63430008110033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 1239,
+        "contract": "contracts/Box.sol:Box",
+        "label": "value",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_uint256"
+      }
+    ],
+    "types": {
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
